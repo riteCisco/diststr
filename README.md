@@ -3,7 +3,7 @@
 1. Rust must be installed on your machine (preferably added to path)
 <ol type="a">
   <li>
-      a. If not installed, use this cli command to install: https://www.rust-lang.org/tools/install
+      If not installed, use this cli command to install: https://www.rust-lang.org/tools/install
   </li>
 </ol>
    
