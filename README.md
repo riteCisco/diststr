@@ -17,3 +17,9 @@
 - Thus, it's possible to tell how DIFFERENT something is from a certain entry, and be able to extrapolate how many extra "rules" might need to be added in order to get there
 - I was thinking to add some of the funny rule stuff to minimize keyspace, but the thought process is that if I'm only measuring the DISTANCE it might not be necessary to try to counter the PERMUTATIONS specifically
     - Waiting for more guidance on that
+
+# Guidance Requested
+- The permutation and rule stuff. I don't know if I'm overthinking it at all
+- Usage of algorithm. I trust the distance algorithm, just not sure if that's what the project is requiring or asking
+- Rust optimization. This is the first time I've coded in Rust, and the reason why this script took a bit long was because I was learning the language for the first time. Please let me know if there's anything I can improve on! Any and all feedback is appreciated
+- If the script is completely wrong, please let me know. I want to make this script better!
