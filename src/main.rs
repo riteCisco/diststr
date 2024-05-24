@@ -1,5 +1,3 @@
-use std::arch::aarch64::int32x2_t;
-//use std::env::Args;
 use std::env;
 use std::io;
 use std::fs::File;
@@ -76,14 +74,51 @@ fn main() {
     let mut smallest_dist = 10000;
     let mut biggest_dist= 0;
     let mut smallest_word = String::new();
+    let mut debug_flag = false;
     entry = _args.get(1).unwrap().to_string();
     _args.remove(1);
-    argsze = argsze - 1;
+    argsze -= 1;
     println!("Entry: {entry}");
     filename = _args.get(1).unwrap().to_string();
     _args.remove(1);
     argsze = argsze - 1;
     println!("List Path: {filename}");
+    argsze -= 1;
+    while argsze != 0 {
+        if  _args.get(1).unwrap().to_string() == "-d" {
+            debug_flag = true;
+            _args.remove(1);
+            argsze -= 1;
+        }
+        
+        if  _args.get(1).unwrap() == "-l" { //leet
+            println!("!");
+            //here would be the inclusion of a weighted average of the highest DL Distance and the possibility of discovery based off of leetspeak changes
+            _args.remove(1);
+            argsze -= 1;
+        } 
+        if  _args.get(1).unwrap() == "-c" { //caps
+            println!("?");
+            //here would be the inclusion of a weighted average including the usage of lower/uppercase, as the entire thing is case sensitive
+            //TO-DO: Figure out if this is needed
+            _args.remove(1);
+            argsze -= 1;
+        }
+        if  _args.get(1).unwrap() == "-64" { //stacked best64 
+            println!("@");
+            //stacked once best64 check (not a lot of rules, should be able to brute force)
+            _args.remove(1); 
+            argsze -= 1;
+        }
+        if  _args.get(1).unwrap() == "-d" { //dive.rules
+            println!("why");
+            //why. there's no true pattern, so this might also need to be brute forced
+            _args.remove(1);
+            argsze -= 1;
+        }
+    }
+    //there's always space to add more, but these are the four "cool" ones. everything is possible imo except for dive, that looks like
+    //it could be a real pain 
     //let mut file =  File::create(filename);
     //file.read_line(&mut ph);
     //println!("{entry}");
@@ -102,7 +137,9 @@ fn main() {
                     flag = false;
                     continue;
                 }
-                println!("New Winner! {} + {} with {}", result.blue(), entry.blue(), newdist.to_string().blue());
+                if debug_flag {
+                    println!("New Winner! {} + {} with {}", result.blue(), entry.blue(), newdist.to_string().blue());
+                }
             }
             if newdist > biggest_dist {
                 biggest_dist = newdist;
@@ -110,7 +147,9 @@ fn main() {
                     flag = false;
                     continue;
                 }
+                if (debug_flag) {
                 println!("New Loser! {} + {} with {}", result.red(), entry.red(), newdist.to_string().red());
+                }
             }
         }
     }
@@ -120,30 +159,6 @@ fn main() {
     //println!("{}", _args.get(1).unwrap());
     //Levenstein is a HUGE keyspace. Assume naive distance
     //The bigger the distance is, the better. This assumes that  
-    if argsze >= 2 && _args.get(1).unwrap() == "-l" { //leet
-        println!("!");
-        //here would be the inclusion of a weighted average of the highest DL Distance and the possibility of discovery based off of leetspeak changes
-        _args.remove(1);
-        argsze = argsze - 1;
-    } 
-    if argsze >= 2 && _args.get(1).unwrap() == "-c" { //caps
-        println!("?");
-        //here would be the inclusion of a weighted average including the usage of lower/uppercase, as the entire thing is case sensitive
-        //TO-DO: Figure out if this is needed
-        _args.remove(1);
-        argsze = argsze - 1;
-    }
-    if argsze >=2 && _args.get(1).unwrap() == "-64" { //stacked best64 
-        println!("@");
-        //stacked once best64 check (not a lot of rules, should be able to brute force)
-       _args.remove(1); 
-       argsze = argsze - 1;
-    }
-    if argsze >= 2 && _args.get(1).unwrap() == "-d" { //dive.rules
-        println!("why");
-        //why. there's no true pattern, so this might also need to be brute forced
-        _args.remove(1);
-    }
-    //there's always space to add more, but these are the four "cool" ones. everything is possible imo except for dive, that looks like
-    //it could be a real pain
+    
 }
+

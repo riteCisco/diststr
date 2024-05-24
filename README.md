@@ -31,5 +31,6 @@
 - If the script is in any way wrong, please let me know. I want to make this script better!
 
 # TO-DO
-- Tie-breaking system
-- Implement wordlist as baseline https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS
+- Tie-breaking system -> Progress: Idea mapped out (Weighting system for addition, insertions, etc)
+- Implement wordlist as baseline https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS -> Progress: None
+- Implement more sophisticated flag system to add weights into the algorithm -> Progress: System to process implemented, how to process in the actual algorithm is still under consideration
