@@ -3,8 +3,8 @@
 1. Rust must be installed on your machine (preferably added to path)
     a. If not installed, use this cli command to install: https://www.rust-lang.org/tools/install
 2. To run:
-    a. Navigate to src folder
-    b. Run cargo run -- {domain name} {path to wordlist} {Other flags}
+3.     cd src
+4.     cargo run -- {domain name} {path to wordlist} {Other flags}
 # FLAG INSTRUCTION ***NOT IMPLEMENTED (mainly cause I don't know if it's completely necessary or not)***
 - -l -> Chance if being leetspoken
 - -c -> Chance of being found if testing upper/lowercase variation
