@@ -1,3 +1,4 @@
+use std::arch::aarch64::int32x2_t;
 //use std::env::Args;
 use std::env;
 use std::io;
@@ -41,7 +42,6 @@ fn dldist(s1: &str, s2: &str) -> usize {
     for i in 1..=s1_len {
         for j in 1..=s2_len {
             let cost = if s1_chars[i - 1] == s2_chars[j - 1] { 0 } else { 1 };
-
             distances[i][j] = *[
                 distances[i - 1][j] + 1,    // deletion
                 distances[i][j - 1] + 1,    // insertion
