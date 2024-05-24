@@ -74,7 +74,7 @@ fn main() {
     let mut smallest_dist = 10000;
     let mut biggest_dist= 0;
     let mut smallest_word = String::new();
-    let mut debug_flag = false;
+    let mut list_flag = (false, false, false, false, false);
     entry = _args.get(1).unwrap().to_string();
     _args.remove(1);
     argsze -= 1;
@@ -86,16 +86,17 @@ fn main() {
     argsze -= 1;
     while argsze != 0 {
         if  _args.get(1).unwrap().to_string() == "-d" {
-            debug_flag = true;
+            list_flag.0 = true;
             _args.remove(1);
             argsze -= 1;
-        }
-        
+            continue;
+        } 
         if  _args.get(1).unwrap() == "-l" { //leet
             println!("!");
             //here would be the inclusion of a weighted average of the highest DL Distance and the possibility of discovery based off of leetspeak changes
             _args.remove(1);
             argsze -= 1;
+            continue;
         } 
         if  _args.get(1).unwrap() == "-c" { //caps
             println!("?");
@@ -103,18 +104,21 @@ fn main() {
             //TO-DO: Figure out if this is needed
             _args.remove(1);
             argsze -= 1;
+            continue;
         }
         if  _args.get(1).unwrap() == "-64" { //stacked best64 
             println!("@");
             //stacked once best64 check (not a lot of rules, should be able to brute force)
             _args.remove(1); 
             argsze -= 1;
+            continue;
         }
         if  _args.get(1).unwrap() == "-d" { //dive.rules
             println!("why");
             //why. there's no true pattern, so this might also need to be brute forced
             _args.remove(1);
             argsze -= 1;
+            continue;
         }
     }
     //there's always space to add more, but these are the four "cool" ones. everything is possible imo except for dive, that looks like
@@ -137,7 +141,7 @@ fn main() {
                     flag = false;
                     continue;
                 }
-                if debug_flag {
+                if list_flag.0 {
                     println!("New Winner! {} + {} with {}", result.blue(), entry.blue(), newdist.to_string().blue());
                 }
             }
@@ -147,7 +151,7 @@ fn main() {
                     flag = false;
                     continue;
                 }
-                if (debug_flag) {
+                if list_flag.0 {
                 println!("New Loser! {} + {} with {}", result.red(), entry.red(), newdist.to_string().red());
                 }
             }
