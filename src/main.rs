@@ -87,6 +87,7 @@ fn main() {
     //let mut file =  File::create(filename);
     //file.read_line(&mut ph);
     //println!("{entry}");
+    let mut flag = true;
     let mut result;
     if let Ok(lines) = read_lines(filename) {
         // Consumes the iterator, returns an (Optional) String
@@ -95,12 +96,20 @@ fn main() {
             let newdist = dldist(&result, &entry);
             //println!("{newdist}");
             if newdist < smallest_dist {
-                smallest_dist = newdist;
+                smallest_dist = newdist; //NEEDS A TIE BREAKER THAT DOES NOT ADD A BUNCH OF COMPLEXITY
                 smallest_word = result.clone();
+                if flag {
+                    flag = false;
+                    continue;
+                }
                 println!("New Winner! {} + {} with {}", result.blue(), entry.blue(), newdist.to_string().blue());
             }
             if newdist > biggest_dist {
                 biggest_dist = newdist;
+                if flag {
+                    flag = false;
+                    continue;
+                }
                 println!("New Loser! {} + {} with {}", result.red(), entry.red(), newdist.to_string().red());
             }
         }
