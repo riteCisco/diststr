@@ -29,3 +29,7 @@
 - Usage of algorithm. I trust the distance algorithm, just not sure if that's what the project is requiring or asking
 - Rust optimization. This is the first time I've coded in Rust, and the reason why this script took a bit long was because I was learning the language for the first time. Please let me know if there's anything I can improve on! Any and all feedback is appreciated
 - If the script is in any way wrong, please let me know. I want to make this script better!
+
+# TO-DO
+- Tie-breaking system
+- Implement wordlist as baseline https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS
