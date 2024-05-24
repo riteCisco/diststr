@@ -2,7 +2,7 @@
 
 1. Rust must be installed on your machine (preferably added to path)
     a. If not installed, use this cli command to install: https://www.rust-lang.org/tools/install
-2. To run:
+2. To run (starting from diststr directory):
 3.     cd src
 4.     cargo run -- {domain name} {path to wordlist} {Other flags}
 # FLAG INSTRUCTION ***NOT IMPLEMENTED (mainly cause I don't know if it's completely necessary or not)***
