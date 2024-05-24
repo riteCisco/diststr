@@ -4,7 +4,7 @@
     a. If not installed, use this cli command to install: https://www.rust-lang.org/tools/install
 2. To run (starting from diststr directory):
 3.     cd src
-4.     cargo run -- {domain name} {path to wordlist} {Other flags}
+4.     cargo run -- {domain name} {path to wordlist} {Other flags THERE BUT NOT NO FUNCTIONALITY IMPLEMENTED YET}
 # FLAG INSTRUCTION ***NOT IMPLEMENTED (mainly cause I don't know if it's completely necessary or not)***
 - -l -> Chance if being leetspoken
 - -c -> Chance of being found if testing upper/lowercase variation
@@ -17,6 +17,7 @@
 - Thus, it's possible to tell how DIFFERENT something is from a certain entry, and be able to extrapolate how many extra "rules" might need to be added in order to get there
 - I was thinking to add some of the funny rule stuff to minimize keyspace, but the thought process is that if I'm only measuring the DISTANCE it might not be necessary to try to counter the PERMUTATIONS specifically
     - Waiting for more guidance on that
+- I treated this a lot like a password complexity assessment, with more emphasis on weighted averages on maybe what changes need to be made?
 
 # Guidance Requested
 - The permutation and rule stuff. I don't know if I'm overthinking it at all
