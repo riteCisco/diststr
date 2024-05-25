@@ -1,14 +1,9 @@
 # INSTRUCTIONS TO RUN:
 
-1. Rust must be installed on your machine (preferably added to path)
-<ol type="a">
-  <li>
-      If not installed, use this cli command to install: https://www.rust-lang.org/tools/install
-  </li>
-</ol>
-3. To run (starting from diststr directory):
-4.     cd src
-5.     cargo run -- {domain name} {path to wordlist} 
+1.  Rust must be installed on your machine. If not installed, follow this site's instructions to install: https://www.rust-lang.org/tools/install
+3.  To run (starting from diststr directory):
+<pre><code>cd src</code></pre>
+<pre><code>cargo run -- {domain name} {path to wordlist} {flags}</code></pre>
 
 # FLAG INSTRUCTION
 
