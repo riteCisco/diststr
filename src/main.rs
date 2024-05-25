@@ -5,6 +5,7 @@ use std::io::BufRead;
 use std::path::Path;
 use colored::Colorize;
 use std::collections::HashMap;
+use std::time::Instant;
 //use std::io::prelude::*;
 //use cewl to gen wordlist
 //Variations based off of hashcat (one rule to rule them all)
@@ -159,6 +160,7 @@ fn dldist(s1: &str, s2: &str) -> usize {
 }
 
 fn main() {
+    let start = Instant::now();
     let args1: Vec<String> = env::args().collect();
     dbg!(&args1);
     let mut args: Vec<String> = args1;
@@ -250,7 +252,7 @@ fn main() {
                         continue;
                     }
                     if list_flag.0 {
-                        println!("New Winner! {} + {} with {}", test.blue(), entry.blue(), newdist.to_string().blue());
+                        println!("New Winner! {} + {} with {}. Current time elapsed: {}", test.blue(), entry.blue(), newdist.to_string().blue(), start.elapsed().as_secs());
                     }
                 }
                 if newdist > biggest_dist {
@@ -260,13 +262,15 @@ fn main() {
                         continue;
                     }
                     if list_flag.0 {
-                        println!("New Loser! {} + {} with {}", test.red(), entry.red(), newdist.to_string().red());
+                        println!("New Loser! {} + {} with {}. Current time elapsed: {}", test.red(), entry.red(), newdist.to_string().red(), start.elapsed().as_secs());
                     }
                 }
             }
         }
     }
     println!("Base Answer: {}, with {}", smallest_word.green(), smallest_dist.to_string().green());
+
+    println!("This process took a total of {} seconds", start.elapsed().as_secs());
     //println!("Damerau-Levenshtein distance: {}", dldist(s1, s2));
     //the challenge isn't the distance itself, the addition of how many changes it would take is what I want
     //println!("{}", args.get(1).unwrap());
