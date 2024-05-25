@@ -7,7 +7,7 @@ use colored::Colorize;
 use std::collections::HashMap;
 use std::time::Instant;
 //use std::io::prelude::*;
-//use cewl to gen wordlist
+//use cewl to gen wordlist?
 //Variations based off of hashcat (one rule to rule them all)
 /*
 Generalization of Hamming distance 
