@@ -19,8 +19,39 @@ for transpositions
 
 }*/
 
-fn l33tify(word: &str) -> Vec<String> {
+fn variety_calc(input: &str) -> f64 {
+    // Create a HashMap to store character frequencies.
+    let mut frequencies = HashMap::new();
+
+    // Iterate over each character in the string.
+    for ch in input.chars() {
+        // Increment the frequency count for this character.
+        *frequencies.entry(ch).or_insert(0) += 1;
+    }
+
+    // Calculate the diversity score.
+    // This example uses the number of unique characters divided by the total number of characters.
+    // The score will be between 0 (no diversity) and 1 (maximum diversity).
+    let unique_chars = frequencies.len();
+    let total_chars = input.chars().count();
+    
+    // Avoid division by zero if the string is empty.
+    if total_chars > 0 {
+        (unique_chars as f64) / (total_chars as f64)
+    } else {
+        0.0
+    }
+}
+
+fn length_calc(word: &str) -> f64 {
+    let space:f64 = 62.0;
+    return space.powf(word.len() as f64);
+
+}
+fn l33tify(word: &str, flag: bool) -> Vec<String> {
     // Define leetspeak substitutions (can be expanded with more substitutions)
+    let mut result: Vec<String> = Vec::new();
+
     let subs: HashMap<char, Vec<char>> = [
         ('a', vec!['4', '@']),
         ('e', vec!['3']),
@@ -32,18 +63,44 @@ fn l33tify(word: &str) -> Vec<String> {
     .iter()
     .cloned()
     .collect();
-
-    let mut combinations = Vec::new();
-    let word_chars: Vec<char> = word.chars().collect();
-    genrec(&subs, &word_chars, 0, &mut String::new(), &mut combinations);
-    
-    combinations
+    if !flag {
+        let word_chars: Vec<char> = word.chars().collect();
+        genrec(&subs, &word_chars, 0, &mut String::new(), &mut result);
+    }
+    else {
+        result.push(
+            word
+                .chars()
+                .map(|c| {
+                    subs.get(&c.to_ascii_lowercase())
+                        .and_then(|sub_vec| sub_vec.first())
+                        .map_or(c, |leet_char| *leet_char)
+                })
+                .collect()
+        );
+    } 
+    result
 }
 
-fn caseify(input: &str) -> Vec<String> {
-    let mut permutations = Vec::new();
-    genperm(input.chars().collect(), 0, &mut String::new(), &mut permutations);
-    permutations
+fn caseify(input: &str, flag: bool) -> Vec<String> {
+    let mut list = Vec::new();
+    if !flag {
+        genperm(input.chars().collect(), 0, &mut String::new(), &mut list);
+    }
+    else {
+        list.push(input.to_lowercase());
+        list.push(input.to_uppercase());
+        list.push(input.chars()
+            .map(|c| {
+                if c.is_uppercase() {
+                    c.to_lowercase().to_string()
+                } else {
+                    c.to_uppercase().to_string()
+                }
+            })
+            .collect())
+    }
+    list
 }
 
 fn genperm(chars: Vec<char>, index: usize, current: &mut String, permutations: &mut Vec<String>) {
@@ -100,10 +157,10 @@ fn expandomatic(str: &str, flags: (bool, bool, bool, bool, bool)) -> Vec<String>
     let mut master_vec: Vec<String> = Vec::new(); 
     master_vec.push(str.to_string());
     if flags.1 { //leet
-        master_vec.extend(l33tify(str)); 
+        master_vec.extend(l33tify(str, flags.4));
     }
     if flags.2 {
-        master_vec.extend(caseify(str));
+        master_vec.extend(caseify(str, flags.4));
     }
 
     master_vec
@@ -205,7 +262,7 @@ fn main() {
             argsze -= 1;
             continue;
         }
-        if  ph == "-64" { //stacked best64 
+        if  ph == "-s" { //only dl distance 
             //println!("@");
             list_flag.3 = true;
             //stacked once best64 check (not a lot of rules, should be able to brute force)
@@ -213,10 +270,8 @@ fn main() {
             argsze -= 1;
             continue;
         }
-        if  ph == "-di" { //dive.rules
-            println!("why");
+        if  ph == "-li" { //light mode
             list_flag.4 = true;
-            //why. there's no true pattern, so this might also need to be brute forced
             args.remove(1);
             argsze -= 1;
             continue;
@@ -228,8 +283,8 @@ fn main() {
         println!("Debug flag set to {}", list_flag.0);
         println!("Leet flag set to {}", list_flag.1); 
         println!("Upper/Lower flag set to {}", list_flag.2);
-        println!("64 flag set to {}", list_flag.3);
-        println!("Dive flag set to {}", list_flag.4);
+        println!("Simple flag set to {}", list_flag.3);
+        println!("Light flag set to {}", list_flag.4);
     }
     //there's always space to add more, but these are the four "cool" ones. everything is possible imo except for dive, that looks like
     //it could be a real pain 
@@ -267,15 +322,70 @@ fn main() {
                 }
             }
         }
+        println!("Base Answer: {}, with {}", smallest_word.green(), smallest_dist.to_string().green());
     }
-    println!("Base Answer: {}, with {}", smallest_word.green(), smallest_dist.to_string().green());
-
-    println!("This process took a total of {} seconds", start.elapsed().as_secs());
-    //println!("Damerau-Levenshtein distance: {}", dldist(s1, s2));
-    //the challenge isn't the distance itself, the addition of how many changes it would take is what I want
-    //println!("{}", args.get(1).unwrap());
-    //Levenstein is a HUGE keyspace. Assume naive distance
-    //The bigger the distance is, the better. This assumes that  
-    
+    let mut flag_final = false;
+    let mut final_value: f64;
+    if smallest_dist < 5 {
+        final_value = (((biggest_dist as f64) - (smallest_dist as f64)) / (biggest_dist as f64)) * 60.0; //if there's a close match, boost importance 
+        flag_final = true;
+    }
+    else {
+        final_value = (((biggest_dist as f64) - (smallest_dist as f64)) / (biggest_dist as f64)) * 30.0;
+    }
+    if list_flag.0 {
+        println!("Distance calculated score: {}", final_value.to_string().blue());
+    }
+    if !list_flag.3 { 
+        let length_score: f64;
+        let mut length_val: f64;
+        length_score = length_calc(&entry);
+        let max_length_score: f64 = 7.0442343e35; // Defined max length score, 62^20 (perfect score would be length of 20)
+        // Apply logarithmic scaling
+        length_val = if length_score > 0.0 {
+            //let log_base: f64 = 2.0;
+            //let normalized_score = length_score.log(log_base);
+            //let normalized_max = max_length_score.log(log_base);
+            // Now scale the normalized score to the range [0, 35] //CHANGE HERE
+            if !flag_final {
+                (1.0 - (length_score / max_length_score)) * 50.0 //CHANGE HERE 
+            }
+            else {
+                (1.0 - (length_score / max_length_score)) * 10.0 //CHANGE HERE 
+            }
+        } else {
+            25.0
+        }; 
+        if length_val < 0.0 {
+            length_val = 0.0;
+        }
+        let variety_score: f64;
+        let variety_val: f64;
+        variety_score = variety_calc(&entry);
+        variety_val = (1.0 - variety_score) * 20.0;
+        if list_flag.0 {
+            println!("Length score: {}", length_score.to_string().blue());
+            println!("Brute Force Calculation Score: {}", length_val.to_string().blue());
+            println!("Character Diversity: {}", variety_score.to_string().blue());
+            println!("Character Diversity Calculation Score: {}", variety_val.to_string().blue());
+        }
+        final_value += variety_val + length_val;
+    }
+    if (final_value as i32) < 50 {
+        println!("You score is: {}. Looks good! This string is pretty complex!", (final_value as i32).to_string().green()); 
+    }
+    else if (final_value as i32) > 80 {
+        if !flag_final {
+            println!("You score is: {}. You should probably add more complexity.", (final_value as i32).to_string().red());
+        }
+        else {
+            println!("You score is: {}. Your string was awfully close to a word on your wordlist, {}.", (final_value as i32).to_string().red(), smallest_word.red());
+        }
+    }
+    else {
+        println!("Your score is {}. It's decent, but you could do better.", (final_value as i32).to_string().yellow());
+    }
+    if list_flag.0 {
+        println!("This process took a total of {} seconds", start.elapsed().as_secs().to_string().yellow());
+    }
 }
-

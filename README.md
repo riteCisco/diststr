@@ -7,11 +7,17 @@
 
 # FLAG INSTRUCTION
 
-### These flags might add a significant amount (hours) of time to the process
-- -l -> Add on a list of leetcode variations to test
-- -c -> Add on a list of upper/lowercase variations to test
-### These flags might add unnecessary clutter to the console
-- -d -> Prints out debug messages and shows whenever there is a new biggest and shortest distance
+### These flags might add a significant amount (hours) of time to the process:
+\-l -> Add on a list of leetcode variations to test
+
+\-c -> Add on a list of upper/lowercase variations to test
+
+ -o -> only levenstein distance, no other complexity calculations   
+### Other:
+-d -> Prints out debug messages and shows whenever there is a new biggest and shortest distance\
+\
+-li -> Is not an exhaustive list of variations, but broader applications of the rules.
+* i.e: For the word "late", instead of going through the combinations l4te, lat3, and l4t3, the light flag will make it such that it only processes it as l4t3.
 
 # RATIONALE 
 
@@ -30,7 +36,9 @@
 
 # TO-DO
 
-- Tie-breaking system -> Progress: testing on large wordlist
+- Tie-breaking system -> Progress: testing on large wordlist, failed because not optimized
 - Implement wordlist as baseline https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS -> Progress: Done, using namelist.txt -> without modifications takes 5 seconds to find shortest distance between "4dministrator-cisco" and administrators, with leet modifications it takes an estimated 10 hours
-- Implement more sophisticated flag system to add weights into the algorithm -> Progress: fixed, now is order agnostic 
-- Optimize -> Progress: None
+- Implement more sophisticated flag system to add weights into the algorithm -> Progress: fixed, now is order agnostic and has a dedicated weighting system
+- Optimize -> Progress: Threads! :()
+- Create lightweight rules -> Progress: Done, created -s, simple mode
+- swap the flags, make the distance optional and naive default 
