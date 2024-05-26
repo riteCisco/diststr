@@ -351,7 +351,7 @@ fn main() {
                 (1.0 - (length_score / max_length_score)) * 50.0 //CHANGE HERE 
             }
             else {
-                (1.0 - (length_score / max_length_score)) * 10.0 //CHANGE HERE 
+                (1.0 - (length_score / max_length_score)) * 20.0 //CHANGE HERE 
             }
         } else {
             25.0
