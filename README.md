@@ -36,9 +36,9 @@
 
 # TO-DO
 
-- Tie-breaking system -> Progress: testing on large wordlist, failed because not optimized
+- Tie-breaking system -> Progress: Done 
 - Implement wordlist as baseline https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS -> Progress: Done, using namelist.txt -> without modifications takes 5 seconds to find shortest distance between "4dministrator-cisco" and administrators, with leet modifications it takes an estimated 10 hours
 - Implement more sophisticated flag system to add weights into the algorithm -> Progress: fixed, now is order agnostic and has a dedicated weighting system
 - Optimize -> Progress: Threads! :()
-- Create lightweight rules -> Progress: Done, created -s, simple mode
+- Create lightweight rules -> Progress: Done, created -li, simple mode
 - swap the flags, make the distance optional and naive default 
