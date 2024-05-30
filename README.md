@@ -4,7 +4,7 @@
 3.  To run (starting from diststr directory):
 <pre><code>cd src</code></pre>
 <pre><code>cargo run -- {domain name} {path to wordlist} {flags}</code></pre>
-
+PLEASE USE SINGLE QUOTES AROUND YOUR SEARCH STRINGS
 # FLAG INSTRUCTION
 
 ### These flags might add a significant amount (hours) of time to the process:

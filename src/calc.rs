@@ -58,8 +58,7 @@ pub fn dldistcalc(s1: &str, s2: &str) -> usize {
     let s1_chars: Vec<_> = s1.chars().collect();
     let s2_chars: Vec<_> = s2.chars().collect();
     let s1_len = s1_chars.len();
-    let s2_len = s2_chars.len();
-
+    let s2_len = s2_chars.len();  
     let mut distances = vec![vec![0; s2_len + 1]; s1_len + 1];
 
     for i in 0..=s1_len {

@@ -176,7 +176,7 @@ fn main() {
     if (final_value as i32) < 50 {
         println!("You score is: {}. Looks good! This string is pretty complex!", (final_value as i32).to_string().green()); 
     }
-    else if (final_value as i32) > 80 {
+    else if (final_value as i32) >= 70 {
         if !flag_final {
             println!("You score is: {}. You should probably add more complexity.", (final_value as i32).to_string().red());
         }
